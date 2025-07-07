@@ -112,3 +112,40 @@ input[type=\"text\"], input[type=\"file\"] {
     padding: 20px;
   }
 }
+.hero {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.hero .highlight {
+  color: #0077cc;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin: 10px 0 30px;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  background: #0077cc;
+  color: #fff;
+  padding: 20px 30px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  background: #005fa3;
+  transform: scale(1.05);
+}
+

@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 {% block title %}Welcome - Notes Manager{% endblock %}
 {% block content %}
-  <h2>🎓 Welcome Mizan Khan!</h2>
-  <p>This is your personal academic assistant. Select a section above to get started.</p>
+<div class="hero">
+  <h2>🎓 Welcome <span class="highlight">...</span>!</h2>
+  <p class="subtitle">Your smart academic planner. Select a section below to manage your semester with ease.</p>
+
+  <div class="cards">
+    <a class="card" href="{{ url_for('notes') }}">📁 Notes</a>
+    <a class="card" href="{{ url_for('subjects') }}">📚 Subjects</a>
+    <a class="card" href="{{ url_for('tasks') }}">✅ Tasks</a>
+  </div>
+</div>
 {% endblock %}
