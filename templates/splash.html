@@ -1,36 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Notes Manager - Loading</title>
-    <style>
-        body {
-            margin: 0;
-            background-color: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: red;
-            font-family: 'Segoe UI', sans-serif;
-            font-size: 2.5rem;
-            font-weight: bold;
-            animation: flicker 1.5s infinite;
-        }
+  <meta charset="UTF-8">
+  <title>Loading...</title>
+  <meta http-equiv="refresh" content="3;url=/index">
+  <style>
+    body {
+      background-color: #000;
+      color: #00ffc8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      font-size: 28px;
+      animation: glow 2s infinite;
+    }
 
-        @keyframes flicker {
-            0%   { opacity: 1; }
-            50%  { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-    </style>
+    @keyframes glow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+  </style>
 </head>
 <body>
-    <div>🎬 NOTES MANAGER</div>
-    <script>
-        setTimeout(() => {
-            window.location.href = "{{ url_for('welcome') }}";
-        }, 3000);
-    </script>
+  <div>Welcome to 📚 Notes Manager</div>
 </body>
 </html>

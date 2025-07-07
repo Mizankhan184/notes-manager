@@ -1,19 +1,7 @@
 {% extends "base.html" %}
+{% block title %}Tasks{% endblock %}
 {% block content %}
-<section>
-    <h2>🗂️ Your Tasks</h2>
-    <form method="POST" action="{{ url_for('add_task') }}">
-        <input type="text" name="task" placeholder="New Task..." required>
-        <button type="submit">Add</button>
-    </form>
-    <ul class="task-list">
-        {% for task in tasks %}
-        <li class="{{ 'done' if task['done'] else '' }}">
-            {{ task['task'] }}
-            <a href="{{ url_for('update_task', task_id=task['id']) }}">✔️</a>
-            <a href="{{ url_for('delete_task', task_id=task['id']) }}">🗑️</a>
-        </li>
-        {% endfor %}
-    </ul>
-</section>
+  <h2>✅ Task Manager</h2>
+  <p>Track your to-dos here.</p>
+  <div class="btn">Coming Soon 🔧</div>
 {% endblock %}

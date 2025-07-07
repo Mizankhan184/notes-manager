@@ -1,102 +1,91 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory, flash
 import os
-import sqlite3
 from datetime import datetime
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'uploads'
-if not os.path.exists(app.config['UPLOAD_FOLDER']):
-    os.makedirs(app.config['UPLOAD_FOLDER'])
+app.secret_key = 'supersecretkey'  # Required for flash messages
 
-# --- Database Connection ---
-def get_db_connection():
-    conn = sqlite3.connect('data.db')
-    conn.row_factory = sqlite3.Row
-    return conn
+# ========== CONFIGURATION ==========
+BASE_DIR = os.getcwd()
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'uploads')
+TASKS_FILE = os.path.join(BASE_DIR, 'data', 'tasks.txt')
+SUBJECTS_FILE = os.path.join(BASE_DIR, 'data', 'subjects.txt')
 
-# --- Splash Redirect ---
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(os.path.dirname(TASKS_FILE), exist_ok=True)
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# ========== ROUTES ==========
+
 @app.route('/')
-def index():
-    return redirect(url_for('splash'))
-
-@app.route('/splash')
 def splash():
     return render_template('splash.html')
 
-@app.route('/welcome')
-def welcome():
-    return render_template('welcome.html')
+@app.route('/index')
+def index():
+    return render_template('index.html')
 
-# --- Notes Module ---
-@app.route('/notes')
+@app.route('/notes', methods=['GET', 'POST'])
 def notes():
-    conn = get_db_connection()
-    notes = conn.execute('SELECT * FROM notes').fetchall()
-    conn.close()
-    return render_template('notes.html', notes=notes)
+    if request.method == 'POST':
+        uploaded_file = request.files.get('note')
+        if uploaded_file and uploaded_file.filename:
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
+            uploaded_file.save(file_path)
+            flash(f"✅ '{uploaded_file.filename}' uploaded successfully.")
+            return redirect(url_for('notes'))
+    files = os.listdir(app.config['UPLOAD_FOLDER'])
+    return render_template('notes.html', files=files)
 
-@app.route('/add_note', methods=['POST'])
-def add_note():
-    title = request.form['title']
-    content = request.form['content']
-    date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    conn = get_db_connection()
-    conn.execute('INSERT INTO notes (title, content, date) VALUES (?, ?, ?)', (title, content, date))
-    conn.commit()
-    conn.close()
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+@app.route('/delete/<filename>')
+def delete_file(filename):
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        flash(f"🗑️ '{filename}' deleted successfully.")
+    else:
+        flash(f"⚠️ File '{filename}' not found.")
     return redirect(url_for('notes'))
 
-# --- Tasks Module ---
-@app.route('/tasks')
+@app.route('/subjects', methods=['GET', 'POST'])
+def subjects():
+    if request.method == 'POST':
+        new_subject = request.form.get('subject')
+        if new_subject:
+            with open(SUBJECTS_FILE, 'a') as f:
+                f.write(new_subject + '\n')
+            flash(f"📘 Subject '{new_subject}' added.")
+            return redirect(url_for('subjects'))
+    subjects = []
+    if os.path.exists(SUBJECTS_FILE):
+        with open(SUBJECTS_FILE, 'r') as f:
+            subjects = [line.strip() for line in f.readlines() if line.strip()]
+    return render_template('subjects.html', subjects=subjects)
+
+@app.route('/tasks', methods=['GET', 'POST'])
 def tasks():
-    conn = get_db_connection()
-    tasks = conn.execute('SELECT * FROM tasks').fetchall()
-    conn.close()
+    if request.method == 'POST':
+        task = request.form.get('task')
+        if task:
+            with open(TASKS_FILE, 'a') as f:
+                f.write(task + '\n')
+            flash(f"✅ Task added: '{task}'")
+            return redirect(url_for('tasks'))
+    tasks = []
+    if os.path.exists(TASKS_FILE):
+        with open(TASKS_FILE, 'r') as f:
+            tasks = [line.strip() for line in f.readlines() if line.strip()]
     return render_template('tasks.html', tasks=tasks)
 
-@app.route('/add_task', methods=['POST'])
-def add_task():
-    task = request.form['task']
-    conn = get_db_connection()
-    conn.execute('INSERT INTO tasks (task, done) VALUES (?, ?)', (task, False))
-    conn.commit()
-    conn.close()
-    return redirect(url_for('tasks'))
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
-@app.route('/update_task/<int:task_id>')
-def update_task(task_id):
-    conn = get_db_connection()
-    conn.execute('UPDATE tasks SET done = NOT done WHERE id = ?', (task_id,))
-    conn.commit()
-    conn.close()
-    return redirect(url_for('tasks'))
-
-@app.route('/delete_task/<int:task_id>')
-def delete_task(task_id):
-    conn = get_db_connection()
-    conn.execute('DELETE FROM tasks WHERE id = ?', (task_id,))
-    conn.commit()
-    conn.close()
-    return redirect(url_for('tasks'))
-
-# --- Subjects Module ---
-@app.route('/subject', methods=['GET'])
-def subject():
-    conn = get_db_connection()
-    subjects = conn.execute('SELECT * FROM subjects').fetchall()
-    conn.close()
-    return render_template('subject.html', subjects=subjects)
-
-@app.route('/add_subject', methods=['POST'])
-def add_subject():
-    name = request.form['subject']
-    conn = get_db_connection()
-    conn.execute('INSERT INTO subjects (name) VALUES (?)', (name,))
-    conn.commit()
-    conn.close()
-    return redirect(url_for('subject'))
-
-# --- Run App ---
+# ========== RUN APP ==========
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
-
+    app.run(debug=True)

@@ -1,115 +1,182 @@
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
-
-/* === RESET === */
+/* === GLOBAL RESET === */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* === BODY === */
+/* === BODY & BACKGROUND === */
 body {
-    background-color: #121212;
-    color: #ffffff;
-    font-family: 'Inter', sans-serif;
-    min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #1e1e2f, #232336);
+  color: #f0f0f0;
+  min-height: 100vh;
 }
 
-/* === HEADER === */
-header {
-    background-color: #1f1f1f;
-    padding: 20px 40px;
-    box-shadow: 0 0 10px #00ffd5;
-    text-align: center;
+/* === HEADER GLASS STYLE === */
+.glass-header {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #444;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-header h1 {
-    font-size: 32px;
-    color: #00ffd5;
-    margin-bottom: 10px;
-    letter-spacing: 1px;
-}
-
-/* === NAVIGATION === */
-nav {
-    margin-top: 10px;
+.glass-header h1 {
+  font-size: 24px;
+  color: #00ffc8;
 }
 
 nav a {
-    color: #ffffff;
-    margin: 0 10px;
-    text-decoration: none;
-    font-weight: 600;
-    padding: 8px 16px;
-    border: 2px solid transparent;
-    border-radius: 8px;
-    transition: all 0.3s ease;
+  color: #00ffc8;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: 0.3s ease-in-out;
 }
 
 nav a:hover {
-    border-color: #00ffd5;
-    background-color: #00ffd515;
-    color: #00ffd5;
+  color: #fffa72;
+  text-shadow: 0 0 10px #fffa72;
 }
 
-/* === MAIN === */
+/* === MAIN CONTENT === */
 main {
-    padding: 50px 20px;
-    max-width: 800px;
-    margin: auto;
-    text-align: center;
+  padding: 50px 20px;
+  text-align: center;
 }
 
-main h2 {
-    font-size: 28px;
-    margin-bottom: 10px;
-    color: #ffffff;
+/* === HEADINGS === */
+h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #fffa72;
 }
 
-main p {
-    font-size: 18px;
-    color: #bbbbbb;
-    margin-bottom: 30px;
+/* === PARAGRAPH === */
+p {
+  font-size: 18px;
+  margin-bottom: 40px;
+  color: #ccc;
 }
 
-/* === SIGNATURE === */
-.signature {
-    font-family: 'Great Vibes', cursive;
-    font-size: 48px;
-    color: #ffffff;
-    text-shadow: 0 0 10px #00ffd5, 0 0 20px #00ffd5;
-    animation: pulse 2s infinite;
-    margin-top: 40px;
+/* === BUTTON STYLE === */
+.btn {
+  background: linear-gradient(45deg, #00ffc8, #00aaff);
+  color: #000;
+  padding: 14px 30px;
+  margin: 15px;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 0 0 15px #00ffc8;
+  transition: 0.3s ease-in-out;
+  display: inline-block;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.05); opacity: 1; }
-    100% { transform: scale(1); opacity: 0.8; }
+.btn:hover {
+  background: #fffa72;
+  color: #000;
+  box-shadow: 0 0 20px #fffa72;
+  transform: scale(1.05);
+}
+
+/* === NOTES FILE CARD === */
+.note-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid #444;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 500px;
+  box-shadow: 0 0 10px rgba(0,255,200,0.2);
+  transition: 0.3s ease-in-out;
+}
+
+.note-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(0,255,200,0.4);
+}
+
+.note-card a {
+  color: #00ffc8;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.note-card a:hover {
+  color: #fffa72;
+}
+
+/* === FILE UPLOAD FORM === */
+.upload-form {
+  margin: 40px auto;
+  max-width: 500px;
+  padding: 20px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  border: 1px solid #444;
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+
+.upload-form input[type="file"],
+.upload-form input[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+
+.upload-form input[type="file"] {
+  background-color: #333;
+  color: #ccc;
+}
+
+.upload-form input[type="submit"] {
+  background: #00ffc8;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 10px #00ffc8;
+  transition: 0.3s ease-in-out;
+}
+
+.upload-form input[type="submit"]:hover {
+  background: #fffa72;
+  box-shadow: 0 0 15px #fffa72;
 }
 
 /* === RESPONSIVE === */
-@media (max-width: 600px) {
-    header h1 {
-        font-size: 24px;
-    }
+@media (max-width: 768px) {
+  .glass-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-    nav a {
-        display: inline-block;
-        margin: 5px;
-        font-size: 14px;
-    }
+  nav {
+    margin-top: 10px;
+  }
 
-    main h2 {
-        font-size: 22px;
-    }
+  nav a {
+    display: inline-block;
+    margin: 10px 10px 0 0;
+  }
 
-    main p {
-        font-size: 16px;
-    }
+  h2 {
+    font-size: 24px;
+  }
 
-    .signature {
-        font-size: 36px;
-    }
+  .btn {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
 }

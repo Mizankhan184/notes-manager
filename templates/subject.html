@@ -1,16 +1,7 @@
 {% extends "base.html" %}
+{% block title %}Subjects{% endblock %}
 {% block content %}
-<section>
-    <h2>📘 Subjects</h2>
-    <form method="POST" action="{{ url_for('add_subject') }}">
-        <input type="text" name="subject" placeholder="Subject name" required>
-        <button type="submit">➕ Add Subject</button>
-    </form>
-
-    <ul>
-        {% for subject in subjects %}
-        <li>{{ subject['name'] }}</li>
-        {% endfor %}
-    </ul>
-</section>
+  <h2>📘 Subjects</h2>
+  <p>Organize and manage your subjects here.</p>
+  <div class="btn">Coming Soon 🔧</div>
 {% endblock %}

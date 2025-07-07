@@ -1,20 +1,22 @@
 {% extends "base.html" %}
+{% block title %}Notes{% endblock %}
 {% block content %}
-<section>
-    <h2>📒 Your Notes</h2>
-    <form method="POST" action="{{ url_for('add_note') }}">
-        <input type="text" name="title" placeholder="Note Title" required>
-        <textarea name="content" placeholder="Write your note here..." required></textarea>
-        <button type="submit">➕ Add Note</button>
-    </form>
-    <div class="note-list">
-        {% for note in notes %}
-        <div class="note-card">
-            <h3>{{ note['title'] }}</h3>
-            <p>{{ note['content'] }}</p>
-            <small>{{ note['date'] }}</small>
-        </div>
-        {% endfor %}
-    </div>
-</section>
+  <h2>📒 Your Notes</h2>
+  <form class="upload-form" method="POST" enctype="multipart/form-data">
+    <input type="file" name="note" required>
+    <input type="submit" value="Upload Note">
+  </form>
+
+  {% if files %}
+    <h3>Uploaded Files:</h3>
+    {% for file in files %}
+      <div class="note-card">
+        <p>{{ file }}</p>
+        <a href="{{ url_for('uploaded_file', filename=file) }}" target="_blank">📂 Open</a> |
+        <a href="{{ url_for('delete_file', filename=file) }}">🗑️ Delete</a>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No notes uploaded yet.</p>
+  {% endif %}
 {% endblock %}

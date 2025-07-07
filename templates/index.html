@@ -1,12 +1,11 @@
 {% extends "base.html" %}
+{% block title %}Home | Notes Manager{% endblock %}
 {% block content %}
-<section class="centered">
-    <h2>Welcome</h2>
-    <p>Redirecting you to the main dashboard...</p>
-    <script>
-        setTimeout(() => {
-            window.location.href = "{{ url_for('welcome') }}";
-        }, 2000);
-    </script>
-</section>
+  <h2>Welcome Mizan 👋</h2>
+  <p>Plan your semester smartly.</p>
+  <div>
+    <a href="/notes" class="btn">📒 Notes</a>
+    <a href="/subjects" class="btn">📘 Subjects</a>
+    <a href="/tasks" class="btn">✅ Tasks</a>
+  </div>
 {% endblock %}
