@@ -3,23 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <title>{% block title %}Notes Manager{% endblock %}</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-  <header class="glass-header">
-    <h1>📚 Notes Manager</h1>
-    <nav>
-      <a href="/index">Home</a>
-      <a href="/notes">Notes</a>
-      <a href="/subjects">Subjects</a>
-      <a href="/tasks">Tasks</a>
-    </nav>
-  </header>
-  <main>
+  <div class="container">
+    <header>
+      <h1>📚 Notes Manager</h1>
+      <nav>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('notes') }}">Notes</a>
+        <a href="{{ url_for('subjects') }}">Subjects</a>
+        <a href="{{ url_for('tasks') }}">Tasks</a>
+      </nav>
+    </header>
+    
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash">
+          {% for message in messages %}
+            {{ message }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
     {% block content %}{% endblock %}
-  </main>
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </div>
 </body>
 </html>

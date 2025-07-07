@@ -1,7 +1,21 @@
 {% extends "base.html" %}
 {% block title %}Tasks{% endblock %}
 {% block content %}
-  <h2>✅ Task Manager</h2>
-  <p>Track your to-dos here.</p>
-  <div class="btn">Coming Soon 🔧</div>
+  <h2>✅ Your To-Do Tasks</h2>
+  <form method="POST">
+    <label for="task">Add New Task:</label>
+    <input type="text" name="task" required>
+    <button type="submit">Add Task</button>
+  </form>
+
+  <h3>📌 Task List</h3>
+  {% if tasks %}
+    <ul class="file-list">
+      {% for task in tasks %}
+        <li>{{ task }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No tasks added yet.</p>
+  {% endif %}
 {% endblock %}

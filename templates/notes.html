@@ -2,20 +2,25 @@
 {% block title %}Notes{% endblock %}
 {% block content %}
   <h2>📒 Your Notes</h2>
-  <form class="upload-form" method="POST" enctype="multipart/form-data">
+  <form method="POST" enctype="multipart/form-data">
+    <label for="note">Upload Note:</label>
     <input type="file" name="note" required>
-    <input type="submit" value="Upload Note">
+    <button type="submit">Upload</button>
   </form>
 
+  <h3>🗂️ Saved Notes</h3>
   {% if files %}
-    <h3>Uploaded Files:</h3>
-    {% for file in files %}
-      <div class="note-card">
-        <p>{{ file }}</p>
-        <a href="{{ url_for('uploaded_file', filename=file) }}" target="_blank">📂 Open</a> |
-        <a href="{{ url_for('delete_file', filename=file) }}">🗑️ Delete</a>
-      </div>
-    {% endfor %}
+    <ul class="file-list">
+      {% for file in files %}
+        <li>
+          <span>{{ file }}</span>
+          <span>
+            <a href="{{ url_for('uploaded_file', filename=file) }}" target="_blank">View</a> |
+            <a href="{{ url_for('delete_file', filename=file) }}">Delete</a>
+          </span>
+        </li>
+      {% endfor %}
+    </ul>
   {% else %}
     <p>No notes uploaded yet.</p>
   {% endif %}

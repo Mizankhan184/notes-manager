@@ -82,6 +82,10 @@ def tasks():
             tasks = [line.strip() for line in f.readlines() if line.strip()]
     return render_template('tasks.html', tasks=tasks)
 
+@app.route('/welcome')
+def welcome():
+    return render_template('welcome.html')
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
