@@ -141,3 +141,20 @@ ul li {
     font-size: 1.2rem;
     color: #555;
 }
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+.signature {
+    font-family: 'Great Vibes', cursive;
+    font-size: 36px;
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 0 0 10px #00ffd5, 0 0 20px #00ffd5;
+    margin-top: 30px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+}

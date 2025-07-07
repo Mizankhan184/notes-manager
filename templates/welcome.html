@@ -1,9 +1,20 @@
-{% extends "base.html" %}
-{% block content %}
-<section class="centered">
-    <h2>Welcome to Notes Manager</h2>
-    <p>Organize your academic journey with ease 🚀</p>
-    <a class="button" href="{{ url_for('notes') }}">📝 Go to Notes</a>
-    <a class="button" href="{{ url_for('tasks') }}">✅ To-Do Tasks</a>
-</section>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome | Notes Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>📚 Welcome to Notes Manager</h1>
+    </header>
+
+    <main>
+        <p>This app helps you manage notes and reminders smartly.</p>
+
+        <!-- ✨ Mizan Khan Stylish Name Here -->
+        <div class="signature">Mizan Khan</div>
+    </main>
+</body>
+</html>
