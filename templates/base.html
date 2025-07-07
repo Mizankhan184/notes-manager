@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>📚 Notes Manager</h1>
+        <nav>
+            <a href="{{ url_for('welcome') }}">🏠 Home</a>
+            <a href="{{ url_for('notes') }}">📝 Notes</a>
+            <a href="{{ url_for('tasks') }}">✅ Tasks</a>
+            <a href="{{ url_for('subject') }}">📚 Subjects</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

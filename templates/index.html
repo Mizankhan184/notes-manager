@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="centered">
+    <h2>Welcome</h2>
+    <p>Redirecting you to the main dashboard...</p>
+    <script>
+        setTimeout(() => {
+            window.location.href = "{{ url_for('welcome') }}";
+        }, 2000);
+    </script>
+</section>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<section>
+    <h2>📒 Your Notes</h2>
+    <form method="POST" action="{{ url_for('add_note') }}">
+        <input type="text" name="title" placeholder="Note Title" required>
+        <textarea name="content" placeholder="Write your note here..." required></textarea>
+        <button type="submit">➕ Add Note</button>
+    </form>
+    <div class="note-list">
+        {% for note in notes %}
+        <div class="note-card">
+            <h3>{{ note['title'] }}</h3>
+            <p>{{ note['content'] }}</p>
+            <small>{{ note['date'] }}</small>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="centered">
+    <h2>Welcome to Notes Manager</h2>
+    <p>Organize your academic journey with ease 🚀</p>
+    <a class="button" href="{{ url_for('notes') }}">📝 Go to Notes</a>
+    <a class="button" href="{{ url_for('tasks') }}">✅ To-Do Tasks</a>
+</section>
+{% endblock %}
