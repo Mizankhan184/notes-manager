@@ -2,18 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome | Notes Manager</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <header>
-        <h1>📚 Welcome to Notes Manager</h1>
+        <h1>📚 Notes Manager</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/reminders">Reminders</a>
+            <a href="/notes">Notes</a>
+        </nav>
     </header>
 
     <main>
+        <h2>Welcome to Notes Manager</h2>
         <p>This app helps you manage notes and reminders smartly.</p>
 
-        <!-- ✨ Mizan Khan Stylish Name Here -->
+        <!-- Stylish Signature -->
         <div class="signature">Mizan Khan</div>
     </main>
 </body>
